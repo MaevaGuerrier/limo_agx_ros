@@ -16,10 +16,10 @@
         robot_namespace:=$(arg robot_namespace)" />
 
     <!-- initial pose -->
-    <arg name="x" default="0.0"/>
-    <arg name="y" default="0.0"/>
+    <arg name="x" default="1.8478820082339804"/>
+    <arg name="y" default="-4.31997711629501"/>
     <arg name="z" default="0.0"/>
-    <arg name="yaw" default="0.0"/>
+    <arg name="yaw" default="2.56"/>
     <node name="spawn_limo_model" pkg="gazebo_ros" type="spawn_model" args="-x $(arg x)
               -y $(arg y)
               -z $(arg z)
@@ -27,7 +27,7 @@
               -unpause
               -urdf
               -param robot_description
-              -model 'limo$(arg robot_namespace)'" />
+              -model 'limo'" />
 
     <!-- Load joint controller configurations from YAML file to parameter server -->
     <rosparam file="$(find limo_gazebo_sim)/config/limo_four_diff_control.yaml" command="load"/>
@@ -39,8 +39,10 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
         
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find limo_description)/rviz/model_display.rviz" />
-    <!-- <node name="teleop_keybord" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen">
-        <param name="repeat_rate" value="50" />
-    </node> -->
+
+    <node name="teleop_keybord" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen">
+        <!-- <remap from="cmd_vel" to="/limo/cmd_vel" /> -->
+        <param name="repeat_rate" value="10" />
+    </node>
 
 </launch>
