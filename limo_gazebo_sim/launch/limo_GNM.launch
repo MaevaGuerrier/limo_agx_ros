@@ -45,4 +45,6 @@
         <param name="repeat_rate" value="10" />
     </node>
 
+    <include file="$(find  limo_robot_server)/launch/limo_server.launch"/>
+
 </launch>
